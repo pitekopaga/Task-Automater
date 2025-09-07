@@ -1,79 +1,147 @@
 # Task-Automater
 Automated recursive workflows
-<!-- comment -->
+<!-- AI-powered web scraping tool for image collection -->
 
-# Project Title
+# Task-Automater
 
 Final project for the Building AI course
 
 ## Summary
 
-Describe briefly in 2-3 sentences what your project is about. About 250 characters is a nice length! 
-
+An intelligent web scraping tool that automates repetitive image collection workflows from authenticated websites. It handles login authentication, navigates pages, captures screenshots, and saves files with custom naming conventions based on webpage content.
 
 ## Background
 
 Which problems does your idea solve? How common or frequent is this problem? What is your personal motivation? Why is this topic important or interesting?
 
-This is how you make a list, if you need one:
-* problem 1
-* problem 2
-* etc.
+* **Manual repetitive work** - Eliminates hours of clicking, screenshotting, and saving images one by one
+* **Human error in file naming** - Prevents inconsistent naming conventions and typos when saving hundreds of files
+* **Authentication barriers** - Handles login requirements that prevent simple scraping tools from working
+* **Scale limitations** - Allows processing thousands of images instead of being limited by human endurance
+* **Time-sensitive data collection** - Captures content before it expires, gets deleted, or access is revoked
 
+This problem is extremely common across many industries. Digital marketers collect competitor assets, researchers archive web content, e-commerce teams gather product images, and content creators build reference libraries. The personal motivation comes from experiencing the frustration of spending entire days doing mindless clicking, knowing a computer could do it in minutes. Data preservation and efficient content management are crucial in our digital age, especially as more valuable content moves behind authentication walls.
 
 ## How is it used?
 
-Describe the process of using the solution. In what kind situations is the solution needed (environment, time, etc.)? Who are the users, what kinds of needs should be taken into account?
+The user configures the tool through a simple interface by entering the target website URL, login credentials, and defining image selection criteria. They set up custom naming conventions using variables from the webpage and specify the save location. The tool launches a browser session, handles login automatically, navigates through pages, identifies target images, captures screenshots, and saves them with the defined naming pattern.
 
-Images will make your README look nice!
-Once you upload an image to your repository, you can link link to it like this (replace the URL with file path, if you've uploaded an image to Github.)
-![Cat](https://upload.wikimedia.org/wikipedia/commons/5/5e/Sleeping_cat_on_her_back.jpg)
+**Situations where the solution is needed:**
+* Time-critical scenarios before content expires or access is revoked
+* After-hours processing during off-peak times to avoid website traffic limits
+* Bulk data migration when moving between platforms
+* Compliance deadlines for legal or regulatory evidence preservation
+* Research phases with tight project timelines
 
-If you need to resize images, you have to use an HTML tag, like this:
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Sleeping_cat_on_her_back.jpg" width="300">
+**Target users and their needs:**
+* **Digital Marketers/Agencies** - Need competitor analysis tools with batch processing and organized filing
+* **Researchers/Academics** - Require reliable, repeatable processes with detailed logging and citation-friendly naming
+* **Legal Professionals** - Need audit trails, timestamp documentation, and secure storage
+* **E-commerce Teams** - Require high-volume processing with quality consistency
+* **Content Creators** - Need workflow integration with flexible organization options
 
-This is how you create code examples:
+<img src="docs/images/workflow-diagram.png" width="600">
+
+Configuration example:
+```json
+{
+  "website": "https://example.com/gallery",
+  "login": {
+    "username": "your-username",
+    "password": "your-password"
+  },
+  "selectors": {
+    "imageContainer": ".gallery-item",
+    "imageElement": "img",
+    "titleElement": ".image-title"
+  },
+  "naming": {
+    "pattern": "{title}_{date}_{index}",
+    "extension": ".png"
+  },
+  "output": {
+    "directory": "./downloads",
+    "createSubfolders": true
+  }
+}
 ```
-def main():
-   countries = ['Denmark', 'Finland', 'Iceland', 'Norway', 'Sweden']
-   pop = [5615000, 5439000, 324000, 5080000, 9609000]   # not actually needed in this exercise...
-   fishers = [1891, 2652, 3800, 11611, 1757]
-
-   totPop = sum(pop)
-   totFish = sum(fishers)
-
-   # write your solution here
-
-   for i in range(len(countries)):
-      print("%s %.2f%%" % (countries[i], 100.0))    # current just prints 100%
-
-main()
-```
-
 
 ## Data sources and AI methods
-Where does your data come from? Do you collect it yourself or do you use data collected by someone else?
-If you need to use links, here's an example:
-[Twitter API](https://developer.twitter.com/en/docs)
 
-| Syntax      | Description |
+**Data Sources:**
+* Web content from authenticated websites (user-provided credentials)
+* DOM elements and metadata extracted using CSS selectors
+* Image files accessed through browser automation
+* User-defined configuration parameters
+
+**AI Methods:**
+* **Computer Vision** - Automated image detection and classification using OpenCV
+* **Natural Language Processing** - Intelligent text extraction from webpage elements for file naming
+* **Machine Learning** - Pattern recognition for identifying similar image types across different websites
+* **Browser Automation** - Selenium/Playwright for intelligent navigation and interaction
+
+| Technology | Purpose |
 | ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
+| Selenium/Playwright | Browser automation and authentication |
+| OpenCV | Image detection and processing |
+| BeautifulSoup | HTML parsing and element extraction |
+| Pandas | Data organization and export |
+
+[Selenium WebDriver Documentation](https://selenium-python.readthedocs.io/)
+[Playwright Documentation](https://playwright.dev/python/)
 
 ## Challenges
 
 What does your project _not_ solve? Which limitations and ethical considerations should be taken into account when deploying a solution like this?
 
+**Technical Limitations:**
+* Cannot bypass sophisticated anti-bot detection systems (Cloudflare, reCAPTCHA)
+* Struggles with heavily JavaScript-dependent dynamic content loading
+* Performance depends on website response times and internet connection
+* May break when websites update their HTML structure
+
+**Ethical Considerations:**
+* Must respect website terms of service and robots.txt files
+* Should implement rate limiting to avoid overloading servers
+* Cannot be used for copyright infringement or unauthorized content access
+* Requires explicit user permission for accessing private accounts
+* Should not be used to collect personal information or violate privacy
+
+**Legal Compliance:**
+* Users must ensure they have proper authorization to access content
+* Tool includes compliance mode with built-in rate limiting
+* Provides audit logs for legal documentation purposes
+
 ## What next?
 
-How could your project grow and become something even more? What kind of skills, what kind of assistance would you  need to move on? 
+How could your project grow and become something even more? What kind of skills, what kind of assistance would you need to move on?
 
+**Potential Growth Areas:**
+* **AI-Powered Content Classification** - Automatically categorize and tag images using computer vision
+* **Cloud Integration** - Direct upload to Google Drive, Dropbox, or AWS S3
+* **Multi-Site Orchestration** - Manage scraping jobs across multiple websites simultaneously
+* **API Development** - Provide programmatic access for integration with other tools
+* **Browser Extension** - One-click scraping directly from the browser
+* **Mobile App** - Monitor and control scraping jobs remotely
+
+**Skills Needed:**
+* Advanced machine learning for better image recognition
+* Cloud infrastructure expertise (AWS, Docker, Kubernetes)
+* Mobile development (React Native, Flutter)
+* Database design for large-scale data management
+* Security expertise for handling credentials safely
+
+**Assistance Required:**
+* UI/UX designer for better user interface
+* DevOps engineer for scalable deployment
+* Legal advisor for compliance framework
+* Beta testers from target industries
 
 ## Acknowledgments
 
-* list here the sources of inspiration 
-* do not use code, images, data etc. from others without permission
-* when you have permission to use other people's materials, always mention the original creator and the open source / Creative Commons licence they've used
-  <br>For example: [Sleeping Cat on Her Back by Umberto Salvagnin](https://commons.wikimedia.org/wiki/File:Sleeping_cat_on_her_back.jpg#filelinks) / [CC BY 2.0](https://creativecommons.org/licenses/by/2.0)
-* etc
+* [Selenium Project](https://github.com/SeleniumHQ/selenium) for browser automation framework / [Apache License 2.0](https://github.com/SeleniumHQ/selenium/blob/trunk/LICENSE)
+* [Playwright](https://github.com/microsoft/playwright-python) by Microsoft for modern browser automation / [Apache License 2.0](https://github.com/microsoft/playwright-python/blob/main/LICENSE)
+* [OpenCV](https://github.com/opencv/opencv-python) for computer vision capabilities / [Apache License 2.0](https://github.com/opencv/opencv/blob/4.x/LICENSE)
+* Building AI course materials for project structure and methodology
+* Open source community for web scraping best practices and ethical guidelines
+* Beta testers who provided feedback on user experience and feature requirements
